@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React, { useState } from 'react';
+import TweetList from './TweetList';
+import TweetForm from './TweetForm';
 
 function App() {
+  const [tweets, setTweets] = useState([]);
+
+  const addTweet = (text) => {
+    const newTweet = {
+      id: Date.now(),
+      text: text,
+      username: 'User',
+      timestamp: new Date().toLocaleString(),
+    };
+    setTweets([newTweet, ...tweets]);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Twitter Clone</h1>
+      <TweetForm onAddTweet={addTweet} />
+      <TweetList tweets={tweets} />
     </div>
   );
 }
